@@ -5,11 +5,14 @@ pkg_maintainer="Samuel Cassiba <s@cassiba.com>"
 pkg_license=('apachev2')
 pkg_source=https://github.com/openstack/${pkg_name}/archive/${pkg_version}.tar.gz
 pkg_shasum=2b5beed7cd511d15346455dac2e7d3c0462955e0fa1671bc481ba44450ae72f8
-pkg_deps=(core/glibc core/python2)
+pkg_deps=(core/glibc core/python2 core/httpd)
 pkg_build_deps=(core/coreutils core/curl core/git core/cacerts core/wget core/zlib core/openssl core/bzip2 core/sqlite core/make core/gcc core/libffi)
 pkg_bin_dirs=(bin)
 pkg_include_dirs=(include)
 pkg_lib_dirs=(lib)
+pkg_expose=(5000 35357)
+pkg_svc_user="keystone"
+pkg_svc_run="bin/uwsgi ${pkg_prefix}/etc/keystone/keystone-uwsgi-admin.ini && bin/uwsgi ${pkg_prefix}/etc/keystone/keystone-uwsgi-public.ini"
 
 do_build() {
   export CXXFLAGS=$CFLAGS
@@ -18,6 +21,7 @@ do_build() {
   pip install -U pbr
   pip install -U cffi
   pip install -U vcversioner
+  pip install -U uwsgi
   PBR_VERSION=%{version}-%{milestone} pip install --install-option="--prefix=${pkg_prefix}" .
 }
 

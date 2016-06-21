@@ -17,7 +17,8 @@ do_build() {
   pip install -U pip
   pip install -U pbr
   pip install -U cffi
-  PBR_VERSION=%{version}-%{milestone} pip install .
+  pip install -U vcversioner
+  PBR_VERSION=%{version}-%{milestone} pip install --install-option="--prefix=${pkg_prefix}" .
 }
 
 do_install() {

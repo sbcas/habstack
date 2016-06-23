@@ -12,17 +12,15 @@ pkg_include_dirs=(include)
 pkg_lib_dirs=(lib)
 pkg_expose=(5000 35357)
 pkg_svc_user="keystone"
-pkg_svc_run="bin/uwsgi ${pkg_prefix}/etc/keystone/keystone-uwsgi-admin.ini && bin/uwsgi ${pkg_prefix}/etc/keystone/keystone-uwsgi-public.ini"
+
+do_prepare() {
+  export LD_LIBRARY_PATH="$(pkg_path_for core/libffi)/lib"
+  export PIP_CERT="$(pkg_path_for core/cacerts)/ssl/certs/cacert.pem"
+}
 
 do_build() {
-  export CXXFLAGS=$CFLAGS
-  export LD_LIBRARY_PATH="$(pkg_path_for core/libffi)/lib"
-  pip install -U pip
-  pip install -U pbr
-  pip install -U cffi
-  pip install -U vcversioner
-  pip install -U uwsgi
-  PBR_VERSION=%{version}-%{milestone} pip install --install-option="--prefix=${pkg_prefix}" .
+  $(pkg_path_for core/python2)/bin/pip install -U pip
+  PBR_VERSION=%{version}-%{milestone} $(pkg_path_for core/python2)/bin/pip install --install-option="--prefix=${pkg_prefix}" -U -r requirements.txt
 }
 
 do_install() {

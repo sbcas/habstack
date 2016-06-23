@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "Starting keystone (admin) ..."
+
+{{pkg.svc_path}}/uwsgi {{pkg.svc_path}}/keystone-wsgi-admin
+
+echo "Starting keystone (public) ..."
+
+{{pkg.svc_path}}/uwsgi {{pkg.svc_path}}/keystone-wsgi-public

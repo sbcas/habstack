@@ -5,9 +5,8 @@ pkg_maintainer="Samuel Cassiba <s@cassiba.com>"
 pkg_license=('apachev2')
 pkg_source=nosuchfile.tar.gz
 pkg_deps=(core/glibc core/python2 core/httpd core/pcre)
-pkg_build_deps=(core/coreutils core/curl core/git core/cacerts core/wget core/zlib core/openssl core/bzip2 core/sqlite core/make core/gcc core/libffi)
+pkg_build_deps=(core/coreutils core/curl core/git core/cacerts core/wget core/zlib core/openssl core/bzip2 core/sqlite core/make core/gcc core/libffi core/pcre)
 pkg_bin_dirs=(bin)
-pkg_include_dirs=(include)
 pkg_lib_dirs=(lib)
 pkg_expose=(5000 35357)
 

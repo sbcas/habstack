@@ -45,12 +45,13 @@ do_download() {
 }
 
 do_prepare() {
+  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(pkg_path_for core/libffi)/lib:$(pkg_path_for core/pcre)/lib"
+  export LD_RUN_PATH="$LD_RUN_PATH:$(pkg_path_for core/pcre)/lib"
   export PIP_CERT="$(pkg_path_for core/cacerts)/ssl/certs/cacert.pem"
   export PYTHONPATH="${pkg_prefix}/lib/python2.7/site-packages:$(pkg_path_for core/python2)/lib/python2.7/site-packages"
 }
 
 do_build() {
-  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(pkg_path_for core/libffi)/lib:$(pkg_path_for core/pcre)/lib"
   sed -i'' 's:#.*$::g' $HAB_CACHE_SRC_PATH/${pkg_name}/requirements.txt
   python -m ensurepip
   pip install --install-option="--prefix=${pkg_prefix}" pbr

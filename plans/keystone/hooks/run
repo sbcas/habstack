@@ -2,8 +2,8 @@
 
 echo "Starting keystone (admin) ..."
 
-{{pkg.svc_path}}/uwsgi {{pkg.path}}/keystone-wsgi-admin
+{{pkg.path}}/bin/uwsgi {{pkg.path}}/bin/keystone-wsgi-admin
 
 echo "Starting keystone (public) ..."
 
-{{pkg.svc_path}}/uwsgi {{pkg.path}}/keystone-wsgi-public
+{{pkg.path}}/bin/uwsgi {{pkg.path}}/bin/keystone-wsgi-public

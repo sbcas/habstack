@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "Starting cinder-api ..."
+
+{{pkg.path}}/bin/cinder-api
+
+echo "Starting cinder-volume ..."
+
+{{pkg.path}}/bin/cinder-volume
+
+echo "Starting cinder-scheduler ..."
+{{pkg.path}}/bin/cinder-scheduler

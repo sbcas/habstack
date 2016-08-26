@@ -1,5 +1,9 @@
 #!/bin/sh
 
+echo "Running db_sync ..."
+
+{{pkg.path}} keystone-manage db_sync
+
 echo "Starting keystone (admin) ..."
 
 {{pkg.path}}/bin/uwsgi {{pkg.path}}/bin/keystone-wsgi-admin

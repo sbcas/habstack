@@ -14,8 +14,10 @@ pkg_build_deps=(
   core/git
   core/libffi
   core/make
+  core/mysql
   core/openssl
   core/pcre
+  core/rabbitmq
   core/sqlite
   core/wget
   core/zlib
@@ -58,7 +60,7 @@ do_build() {
   pip install --install-option="--prefix=${pkg_prefix}" vcversioner
   pip install --install-option="--prefix=${pkg_prefix}" uwsgi
   pushd $HAB_CACHE_SRC_PATH/${pkg_name} > /dev/null
-  PBR_VERSION=${version}-%{milestone} pip install --install-option="--prefix=${pkg_prefix}" -r requirements.txt
+  PBR_VERSION=%{version}-%{milestone} pip install --install-option="--prefix=${pkg_prefix}" -r requirements.txt
   popd > /dev/null
 }
 

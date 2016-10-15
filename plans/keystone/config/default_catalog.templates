@@ -1,0 +1,42 @@
+# config for templated.Catalog, using camelCase because I don't want to do
+# translations for keystone compat
+catalog.RegionOne.identity.publicURL = http://{{sys.ip}}:$(public_port)s/v2.0
+catalog.RegionOne.identity.adminURL = http://{{sys.ip}}:$(admin_port)s/v2.0
+catalog.RegionOne.identity.internalURL = http://{{sys.ip}}:$(public_port)s/v2.0
+catalog.RegionOne.identity.name = Identity Service
+
+# fake compute service for now to help novaclient tests work
+catalog.RegionOne.computev21.publicURL = http://{{sys.ip}}:8774/v2.1/$(tenant_id)s
+catalog.RegionOne.computev21.adminURL = http://{{sys.ip}}:8774/v2.1/$(tenant_id)s
+catalog.RegionOne.computev21.internalURL = http://{{sys.ip}}:8774/v2.1/$(tenant_id)s
+catalog.RegionOne.computev21.name = Compute Service V2.1
+
+catalog.RegionOne.volumev2.publicURL = http://{{sys.ip}}:8776/v2/$(tenant_id)s
+catalog.RegionOne.volumev2.adminURL = http://{{sys.ip}}:8776/v2/$(tenant_id)s
+catalog.RegionOne.volumev2.internalURL = http://{{sys.ip}}:8776/v2/$(tenant_id)s
+catalog.RegionOne.volumev2.name = Volume Service V2
+
+catalog.RegionOne.ec2.publicURL = http://{{sys.ip}}:8773/services/Cloud
+catalog.RegionOne.ec2.adminURL = http://{{sys.ip}}:8773/services/Admin
+catalog.RegionOne.ec2.internalURL = http://{{sys.ip}}:8773/services/Cloud
+catalog.RegionOne.ec2.name = EC2 Service
+
+catalog.RegionOne.image.publicURL = http://{{sys.ip}}:9292
+catalog.RegionOne.image.adminURL = http://{{sys.ip}}:9292
+catalog.RegionOne.image.internalURL = http://{{sys.ip}}:9292
+catalog.RegionOne.image.name = Image Service
+
+catalog.RegionOne.network.publicURL = http://{{sys.ip}}:9696
+catalog.RegionOne.network.adminURL = http://{{sys.ip}}:9696
+catalog.RegionOne.network.internalURL = http://{{sys.ip}}:9696
+catalog.RegionOne.network.name = Network Service
+
+catalog.RegionOne.orchestration.publicURL = http://{{sys.ip}}:8004/v1/$(tenant_id)s
+catalog.RegionOne.orchestration.adminURL = http://{{sys.ip}}:8004/v1/$(tenant_id)s
+catalog.RegionOne.orchestration.internalURL = http://{{sys.ip}}:8004/v1/$(tenant_id)s
+catalog.RegionOne.orchestration.name = Orchestration Service
+
+catalog.RegionOne.metering.publicURL = http://{{sys.ip}}:8777
+catalog.RegionOne.metering.adminURL = http://{{sys.ip}}:8777
+catalog.RegionOne.metering.internalURL = http://{{sys.ip}}:8777
+catalog.RegionOne.metering.name = Telemetry Service

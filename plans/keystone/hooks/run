@@ -1,13 +1,10 @@
 #!/bin/sh
 
-echo "Running db_sync ..."
+exec 2>&1
 
-{{pkg.path}} keystone-manage db_sync
+export PBR_VERSION="{{pkg.version}}"
+export LD_LIBRARY_PATH="$(hab pkg path core/pcre)/lib:$(hab pkg path core/libffi)/lib"
+export PYTHONPATH="{{pkg.path}}/lib/python2.7/site-packages:$(hab pkg path core/python2)/lib/python2.7/site-packages"
 
-echo "Starting keystone (admin) ..."
-
-{{pkg.path}}/bin/uwsgi {{pkg.path}}/bin/keystone-wsgi-admin
-
-echo "Starting keystone (public) ..."
-
-{{pkg.path}}/bin/uwsgi {{pkg.path}}/bin/keystone-wsgi-public
+{{pkg.path}}/bin/uwsgi {{pkg.svc_path}}/config/keystone-uwsgi-admin.ini
+{{pkg.path}}/bin/uwsgi {{pkg.svc_path}}/config/keystone-uwsgi-public.ini

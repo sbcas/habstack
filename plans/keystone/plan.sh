@@ -1,10 +1,10 @@
 pkg_origin=habstack
 pkg_name=keystone
-pkg_version=10.0.0
+pkg_version=11.0.0
 pkg_maintainer="Samuel Cassiba <s@cassiba.com>"
 pkg_license=('apachev2')
 pkg_source=https://github.com/openstack/keystone/archive/${pkg_version}.tar.gz
-pkg_shasum=9bd550d550053ba4821f8099d64097a5d374dc4c6f9d20b9c8c38ad0d9b3fb81
+pkg_shasum=3cc7e03446ff2426849181b9ffdb8ea85591da62a3043abfa9ba441a77ee4651
 pkg_deps=(core/glibc core/python2 core/pcre)
 pkg_build_deps=(
   core/bzip2
@@ -38,6 +38,8 @@ do_prepare() {
 
 do_build() {
   sed -i'' 's:#.*$::g' $HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version}/requirements.txt
+  wget -O $HAB_CACHE_SRC_PATH/get-pip.py https://bootstrap.pypa.io/get-pip.py
+  python $HAB_CACHE_SRC_PATH/get-pip.py
   python -m ensurepip
   pip install --install-option="--prefix=${pkg_prefix}" pbr
   pip install --install-option="--prefix=${pkg_prefix}" -U setuptools

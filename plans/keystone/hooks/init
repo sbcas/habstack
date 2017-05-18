@@ -5,5 +5,15 @@ exec 2>&1
 export PYTHONPATH="$PYTHONPATH:$(hab pkg path habstack/keystone)/lib/python2.7/site-packages"
 export LD_LIBRARY_PATH="$(hab pkg path core/pcre)/lib:$(hab pkg path core/libffi)/lib"
 
+keystone-manage bootstrap \
+  --bootstrap-password mypass \
+  --bootstrap-username admin \
+  --bootstrap-project-name admin \
+  --bootstrap-role-name admin \
+  --bootstrap-service-name keystone \
+  --bootstrap-region-id RegionOne \
+  --bootstrap-admin-url http://0.0.0.0:35357/v3 \
+  --bootstrap-public-url http://0.0.0.0:5000/v3 \
+  --bootstrap-internal-url http://0.0.0.0:5000/v3
+
 keystone-manage db_sync
-keystone-manage bootstrap --bootstrap-password mypass

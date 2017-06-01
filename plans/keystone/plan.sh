@@ -10,21 +10,14 @@ pkg_deps=(
   core/iana-etc
   core/mysql-client
   core/pcre
-  python/python2
-  python/appdirs
-  python/packaging
-  python/setuptools
-  python/six
-  python/uwsgi
+  core/python2
 )
 pkg_build_deps=(
-  core/bzip2
   core/cacerts
   core/coreutils
   core/curl
   core/gcc
   core/git
-  core/iana-etc
   core/libffi
   core/make
   core/openssl
@@ -39,7 +32,7 @@ do_prepare() {
   export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(pkg_path_for core/libffi)/lib:$(pkg_path_for core/pcre)/lib"
   export LD_RUN_PATH="$LD_RUN_PATH:$(pkg_path_for core/pcre)/lib"
   export PIP_CERT=`python -m pip._vendor.requests.certs`
-  export PYTHONPATH="${pkg_prefix}/lib/python2.7/site-packages:$(pkg_path_for python/python2)/lib/python2.7/site-packages"
+  export PYTHONPATH="${pkg_prefix}/lib/python2.7/site-packages:$(pkg_path_for core/python2)/lib/python2.7/site-packages"
   export SKIP_GIT_SDIST=1
   export PBR_VERSION="${pkg_version}"
   # create symlinks for /etc/services and /etc/protocols
@@ -56,6 +49,7 @@ do_build() {
   wget -O $HAB_CACHE_SRC_PATH/get-pip.py https://bootstrap.pypa.io/get-pip.py
   python $HAB_CACHE_SRC_PATH/get-pip.py
   python -m ensurepip
+  pip install --install-option="--prefix=${pkg_prefix}" -U certifi
   pip install --install-option="--prefix=${pkg_prefix}" -U pbr
   pip install --install-option="--prefix=${pkg_prefix}" -U vcversioner
 }
@@ -63,7 +57,7 @@ do_build() {
 do_install() {
   pushd $HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version} > /dev/null
   pip install --install-option="--prefix=${pkg_prefix}" -r requirements.txt
-  $(pkg_path_for python/python2)/bin/python setup.py install --prefix="${pkg_prefix}"
+  $(pkg_path_for core/python2)/bin/python setup.py install --prefix="${pkg_prefix}"
   for egg in repoze paste
   do touch ${pkg_prefix}/lib/python2.7/site-packages/$egg/__init__.py
   done
